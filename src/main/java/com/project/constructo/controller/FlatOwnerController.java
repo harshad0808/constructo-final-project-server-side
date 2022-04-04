@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.constructo.dao.LocalDao;
 import com.project.constructo.model.ConstructOwner;
+import com.project.constructo.model.FlatCount;
 import com.project.constructo.model.FlatOwner;
+import com.project.constructo.repository.FlatCountRepo;
 import com.project.constructo.repository.FlatOwnerRepo;
 
 @RestController
@@ -22,6 +25,12 @@ public class FlatOwnerController {
 
 	@Autowired
 	FlatOwnerRepo flatobj;
+	
+	@Autowired 
+	FlatCountRepo count;
+	
+	@Autowired
+	LocalDao dao;
 	
 	@GetMapping("/users")
 	public List<FlatOwner> findAll()
@@ -40,8 +49,16 @@ public class FlatOwnerController {
 	@PostMapping("/add")
 	public FlatOwner addUser(@RequestBody FlatOwner owner)
 	{
+		long temp=owner.getcOwner().getC_id();
 		
+		FlatCount obj=dao.getCount(temp);
+		int current_count= obj.getCount();
+		++current_count;
+		obj.setCount(current_count);
+		owner.setUsr_Key(current_count);
+		count.save(obj);
 		return flatobj.save(owner);
+		
 		
 	}
 	

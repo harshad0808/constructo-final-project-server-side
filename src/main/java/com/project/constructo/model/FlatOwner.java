@@ -32,6 +32,10 @@ public class FlatOwner {
 	private String usr_Name;
 	
 	@Column
+	private String name;
+	
+	
+	@Column
 	private String phone_No;
 	
 	@Column
