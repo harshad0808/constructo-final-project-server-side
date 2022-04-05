@@ -31,8 +31,7 @@ public class FlatOwner {
 	@Column
 	private String usr_Name;
 	
-	@Column
-	private String name;
+	
 	
 	
 	@Column
