@@ -20,8 +20,10 @@ import com.project.constructo.model.FlatOwner;
 import com.project.constructo.repository.FlatCountRepo;
 import com.project.constructo.repository.FlatOwnerRepo;
 
+
+
+@CrossOrigin
 @RestController
-@CrossOrigin(origins="http://localhost:3000/")
 @RequestMapping("/flat")
 public class FlatOwnerController {
 
@@ -76,4 +78,33 @@ public class FlatOwnerController {
 		
 		
 	}
+	
+	@PostMapping("/loginflat")
+	public ResponseEntity<FlatOwner> checkLogin(@RequestBody FlatOwner owner)
+	{
+		int key=owner.getUsr_Key();
+		String password=owner.getUsr_Password();
+		FlatOwner owner1=dao.verifyLoginFlat(key, password);
+		return ResponseEntity.ok(owner1);
+		
+	}
+	
+	@PostMapping("/validateAccount")
+	public ResponseEntity<FlatOwner> validateAccount(@RequestBody FlatOwner tempowner)
+	{
+		int key=tempowner.getUsr_Key();
+		String password=tempowner.getUsr_Password();
+		FlatOwner owner=dao.validateAccount(key);
+		owner.setUsr_Password(password);
+		flatobj.save(owner);
+		
+		
+		
+		return ResponseEntity.ok(owner);
+		
+		
+	}
+	
+	
+	
 }
