@@ -23,11 +23,25 @@ public class VisitBook {
 	@JoinColumn(name="usr_Id")
 	FlatOwner fVisit;
 	
+	@ManyToOne
+	@JoinColumn(name="construct_Id")
+	ConstructOwner consowner;
+	
+	
 	@Column
 	private LocalDate visit_Date;
 	
 	@Column
 	private String timeSlot;
+	
+
+	public ConstructOwner getConsowner() {
+		return consowner;
+	}
+
+	public void setConsowner(ConstructOwner consowner) {
+		this.consowner = consowner;
+	}
 
 	public long getVisit_Id() {
 		return visit_Id;

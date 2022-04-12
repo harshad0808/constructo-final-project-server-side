@@ -60,6 +60,10 @@ public class ConstructOwner {
 	 @JsonIgnore
 	@OneToMany (mappedBy = "cOwnerUpdate")
 	private List <Updates> update;
+	 
+	 @JsonIgnore
+		@OneToMany(mappedBy = "consowner")
+		private List <VisitBook> visitBook;
 	
 	public ConstructOwner() {
 		

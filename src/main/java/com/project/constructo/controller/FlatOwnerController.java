@@ -22,7 +22,7 @@ import com.project.constructo.repository.FlatOwnerRepo;
 
 
 
-@CrossOrigin
+@CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping("/flat")
 public class FlatOwnerController {
@@ -49,6 +49,16 @@ public class FlatOwnerController {
 		return ResponseEntity.ok(owner);
 		
 	}
+	
+	@GetMapping("/construct/{cid}")
+	public List<FlatOwner> getFlatOwnerByConstructId(@PathVariable Long cid)
+	{
+		List<FlatOwner> owner=dao.getFlatOwnerByConstructId(cid);
+		return owner;
+		
+	}
+	
+	
 	
 	@PostMapping("/add")
 	public FlatOwner addUser(@RequestBody FlatOwner owner)

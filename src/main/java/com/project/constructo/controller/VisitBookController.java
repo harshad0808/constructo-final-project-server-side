@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.constructo.dao.LocalDao;
 import com.project.constructo.model.ConstructOwner;
+import com.project.constructo.model.FlatOwner;
 import com.project.constructo.model.VisitBook;
 import com.project.constructo.repository.VisitBookRepo;
 
@@ -23,6 +25,10 @@ public class VisitBookController {
 
 	@Autowired
 	VisitBookRepo visitrepo;
+	
+	@Autowired
+	LocalDao dao;
+	
 	
 	
 	@GetMapping("/users")
@@ -37,10 +43,19 @@ public class VisitBookController {
 	public VisitBook addvisit(@RequestBody VisitBook owner)
 	{
 		
-	
+		//System.out.println();
 		return visitrepo.save(owner);
 		
 	}
+	
+	@GetMapping("/{cid}")
+	public List<VisitBook> getFlatOwnerByConstructId(@PathVariable Long cid)
+	{
+		List<VisitBook> owner=dao.getVisitsByConstructId(cid);
+		return owner;
+		
+	}
+	
 	
 	
 	

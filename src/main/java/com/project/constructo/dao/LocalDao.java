@@ -1,5 +1,7 @@
 package com.project.constructo.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.project.constructo.model.ConstructOwner;
 import com.project.constructo.model.FlatCount;
 import com.project.constructo.model.FlatOwner;
+import com.project.constructo.model.VisitBook;
 
 @Component("LocalDao")
 public class LocalDao {
@@ -84,6 +87,16 @@ public class LocalDao {
 			System.out.println(e.getMessage());
 			return null;
 		}
+	}
+	
+	public List<FlatOwner> getFlatOwnerByConstructId(long id)
+	{
+		return  entityManager.createQuery("select t from  FlatOwner t where t.cOwner.c_id=:temp").setParameter("temp", id).getResultList();
+	}
+	
+	public List<VisitBook> getVisitsByConstructId(long id)
+	{
+		return  entityManager.createQuery("select t from  VisitBook t where t.consowner.c_id=:temp").setParameter("temp", id).getResultList();
 	}
 
 }
