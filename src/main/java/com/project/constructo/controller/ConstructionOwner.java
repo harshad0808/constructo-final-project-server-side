@@ -52,6 +52,13 @@ public class ConstructionOwner {
 		return obj.findAll();
 	}
 	
+	
+	@GetMapping("/notverified")
+	public List<ConstructOwner> findnotverified()
+	{
+		return dao.getnotverified();
+	}
+	
 	//Adding Contruction owner
 	@PostMapping("/add")
 	//@PostMapping(value="/add", consumes={"application/json"})

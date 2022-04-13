@@ -98,5 +98,10 @@ public class LocalDao {
 	{
 		return  entityManager.createQuery("select t from  VisitBook t where t.consowner.c_id=:temp").setParameter("temp", id).getResultList();
 	}
+	
+	public List<ConstructOwner> getnotverified()
+	{
+		return  entityManager.createQuery("select t from  ConstructOwner t where t.verify_Status=:temp").setParameter("temp", "not verified").getResultList();
+	}
 
 }
