@@ -9,6 +9,7 @@ import com.project.constructo.dao.Construct_Owner_Dao;
 import com.project.constructo.model.ConstructOwner;
 import com.project.constructo.model.FlatOwner;
 import com.project.constructo.model.Updates;
+import com.project.constructo.repository.UpdateRepo;
 
 @Service
 public class Constr_Owner_Service_impl implements Constr_Owner_Service_inf {
@@ -19,7 +20,8 @@ public class Constr_Owner_Service_impl implements Constr_Owner_Service_inf {
 	@Autowired
 	private EmailSenderService emailService;
 	
-	
+	@Autowired
+	private UpdateRepo updateRepo;
 
 	@Override
 	public boolean register(ConstructOwner constr_obj) {
@@ -104,5 +106,9 @@ public class Constr_Owner_Service_impl implements Constr_Owner_Service_inf {
 			
 		return constrDao.add_Constr_Owner(u);
 	}
+	public List<Updates> fetchImage(long c_id) {
+		System.out.println("C-ID: -----------------"+c_id);
+		return updateRepo.findById(c_id);
+	} 
 		
 }

@@ -1,10 +1,13 @@
 package com.project.constructo.controller;
 
+import java.io.FileOutputStream;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +16,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project.constructo.dao.Construct_Owner_Dao;
 import com.project.constructo.dao.LocalDao;
 import com.project.constructo.model.ConstructOwner;
 import com.project.constructo.model.FlatCount;
+import com.project.constructo.model.Updates;
 import com.project.constructo.repository.ConstructoOwnerRepo;
 import com.project.constructo.repository.FlatCountRepo;
 import com.project.constructo.service.Constr_Owner_Service_impl;
@@ -113,5 +118,39 @@ public class ConstructionOwner {
 		return ResponseEntity.ok("password chaange successfully");
 		else
 			return new ResponseEntity<>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+	}
+	
+	@PostMapping("/update")
+	public boolean addUpdates(@RequestBody MultipartFile img,String details,String UpdateDate,Long id) {
+			Updates update = new Updates();
+	try {
+		
+		String fileName = img.getOriginalFilename();
+		FileCopyUtils.copy(img.getInputStream(), new FileOutputStream("D:\\CDAC  JUHU\\Final Project\\Client Side\\react\\constructo\\public\\images\\"+fileName));
+		update.setImg(fileName);
+		
+		update.setUpdateDate(UpdateDate);
+		update.setDetails(details);
+		ConstructOwner owner=new ConstructOwner();
+		owner.setC_id(id);
+		update.setcOwnerUpdate(owner);
+		constrservice.addUpdate(update);
+		
+		
+		return true;
+	}catch(Exception e) {
+		System.out.println(e.getMessage());
+		return false;
+	}
+	
+	}
+	@GetMapping("/images/{c_id}")
+	public List<Updates> addimages(@PathVariable long c_id) {
+		System.out.println("p:"+c_id);
+		return constrservice.fetchImage(c_id);
+		
+		
+		
+		
 	}
 }

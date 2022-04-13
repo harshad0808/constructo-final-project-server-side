@@ -31,7 +31,7 @@ public class Updates {
 	private String Details;
 	
 	@Column
-	private LocalDate UpdateDate;
+	private String UpdateDate;
 
 	public long getUpdateId() {
 		return updateId;
@@ -65,12 +65,14 @@ public class Updates {
 		Details = details;
 	}
 
-	public LocalDate getUpdateDate() {
+	public String getUpdateDate() {
 		return UpdateDate;
 	}
 
-	public void setUpdateDate(LocalDate updateDate) {
+	public void setUpdateDate(String updateDate) {
 		UpdateDate = updateDate;
 	}
+
+
 	
 }
