@@ -153,4 +153,16 @@ public class ConstructionOwner {
 		
 		
 	}
+	
+	@PostMapping("/getVerify/{id}")
+	public ConstructOwner getVerify(@PathVariable Long id)
+	{
+		ConstructOwner owner=obj.findById(id).orElseThrow();
+		owner.setVerify_Status("verified");
+		
+		return obj.save(owner);
+		
+	}
+	
+	
 }
